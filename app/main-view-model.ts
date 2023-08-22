@@ -1,4 +1,4 @@
-import { Observable } from '@nativescript/core'
+import { Observable, Utils, alert, isAndroid } from '@nativescript/core'
 
 export class HelloWorldModel extends Observable {
   private _counter: number
@@ -6,6 +6,15 @@ export class HelloWorldModel extends Observable {
 
   constructor() {
     super()
+
+    if(isAndroid) {
+      const rootBeer = new com.scottyab.rootbeer.RootBeer(Utils.android.getApplicationContext());
+      if (rootBeer.isRooted()) {
+        alert('This device is rooted!');
+      } else {
+        alert('This device is not rooted!');
+      }
+    }
 
     // Initialize default values.
     this._counter = 42
